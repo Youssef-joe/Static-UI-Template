@@ -11,82 +11,101 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <link rel="stylesheet" href="./../public/css/style.css">
+    <link rel="stylesheet" href="./../public/css/style.css" />
     <style>
-      body { font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; }
-      .property-section { min-height: 100vh; scroll-snap-align: start; }
-      .overlay-gradient { background: linear-gradient(to bottom,
-      rgba(0,0,0,0.1), rgba(0,0,0,0.7)); } 
-      
+      body { 
+        font-family: 'Montserrat', sans-serif; 
+        scroll-behavior: smooth; 
+      }
+      .property-section { 
+        min-height: 100vh; 
+        scroll-snap-align: start; 
+      }
+      .overlay-gradient { 
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7)); 
+      } 
       /* Enhanced slider styles */
       .slider-container { 
-        position: relative;
-        width: 100%;
-        overflow: hidden;
+        position: relative; 
+        width: 100%; 
+        overflow: hidden; 
       }
-      .slider-wrapper {
-        display: flex;
-        transition: transform 0.5s ease;
+      .slider-wrapper { 
+        display: flex; 
+        transition: transform 0.5s ease; 
       }
       .slider-item { 
-        flex: 0 0 100%;
-      }
-      @media (min-width: 640px) {
-        .slider-item {
-          flex: 0 0 50%;
-        }
-      }
-      @media (min-width: 768px) {
-        .slider-item {
-          flex: 0 0 33.333%;
-        }
-      }
-      .slider-controls {
-        display: flex;
+        flex: 0 0 100%; 
+      } 
+      @media (min-width: 640px) { 
+        .slider-item { 
+          flex: 0 0 50%; 
+        } 
+      } 
+      @media (min-width: 768px) { 
+        .slider-item { 
+          flex: 0 0 33.333%; 
+        } 
+      } 
+      .slider-controls { 
+        display: flex; 
         justify-content: center;
-        margin-top: 1rem;
-      }
-      .slider-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: rgba(59, 130, 246, 0.5);
-        margin: 0 4px;
+        margin-top: 1rem; 
+      } 
+      .slider-dot { 
+        width: 8px; 
+        height: 8px; 
+        border-radius: 50%; 
+        background: rgba(59, 130, 246, 0.5); 
+        margin: 0 4px; 
         cursor: pointer;
-        transition: all 0.3s ease;
-      }
-      .slider-dot.active {
+        transition: all 0.3s ease; 
+      } 
+      .slider-dot.active { 
         width: 24px;
-        border-radius: 4px;
-        background: rgba(59, 130, 246, 1);
-      }
+        border-radius: 4px; 
+        background: rgba(59, 130, 246, 1); 
+      } 
       .slider-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
+        position: absolute; 
+        top: 50%; 
+        transform: translateY(-50%); 
         width: 40px;
-        height: 40px;
-        background: rgba(255, 255, 255, 0.8);
+        height: 40px; 
+        background: rgba(255, 255, 255, 0.8); 
         border-radius: 50%;
-        display: flex;
-        align-items: center;
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        cursor: pointer; 
+        z-index: 10; 
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+      }
+      .slider-nav.prev { 
+        left: 10px; 
+      } 
+      .slider-nav.next { 
+        right: 10px; 
+      }
+      .feature-icon { 
+        width: 50px; 
+        height: 50px; 
+        background-color: rgba(59, 130, 246, 0.1); 
+        display: flex; 
+        align-items: center; 
         justify-content: center;
-        cursor: pointer;
-        z-index: 10;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 50%; 
+        margin-right: 15px; 
+      } 
+      .progress-bar { 
+        position: fixed;
+        top: 0; 
+        left: 0; 
+        height: 4px; 
+        background: #3B82F6; 
+        z-index: 1000;
+        transition: width 0.3s ease; 
       }
-      .slider-nav.prev {
-        left: 10px;
-      }
-      .slider-nav.next {
-        right: 10px;
-      }
-      
-      .feature-icon { width: 50px; height: 50px; background-color:
-      rgba(59, 130, 246, 0.1); display: flex; align-items: center;
-      justify-content: center; border-radius: 50%; margin-right: 15px; }
-      .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background:
-      #3B82F6; z-index: 1000; transition: width 0.3s ease; }
     </style>
   </head>
   <body class="bg-gray-100">
@@ -118,7 +137,7 @@
             <p>{{bathrooms}} Bathrooms</p>
           </div>
           <div class="text-center">
-            <i class="fas fa-dollar-sign text-2xl mb-2"></i>
+            <i class="fas fa-money-bill-wave text-2xl mb-2"></i>
             <p>${{formatNumber price}}</p>
           </div>
         </div>
@@ -160,11 +179,10 @@
           <div class="slider-controls mt-4" id="sliderControls"></div>
         </div>
         <div class="mt-12 text-center">
-
-            <!-- Here's The Description  -->
+          <!-- Here's The Description  -->
           <div id="desc">
-                <h3>Description</h3>
-                <p>{{description}}</p>
+            <h3>Description</h3>
+            <p>{{description}}</p>
           </div>
         </div>
       </div>
@@ -226,48 +244,41 @@
     <section class="property-section bg-gray-100 py-20">
       <div class="container mx-auto px-6">
         <h2 class="text-4xl font-bold text-center mb-16">Unique Features</h2>
-            <ul class="space-y-3">
-              {{#each unique_points}}
-                <li class="flex items-start">
-                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                  <span>{{this}}</span>
-                </li>
-              {{/each}}
-            </ul>
+
+        <!-- All Features Combined -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div>
-            
-            <ul class="space-y-3">
-              {{#each indoor_features}}
-                <li class="flex items-start">
-                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                  <span>{{this}}</span>
-                </li>
-              {{/each}}
-            </ul>
-          </div>
-          <div>
-           
-            <ul class="space-y-3">
-              {{#each outdoor_features}}
-                <li class="flex items-start">
-                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                  <span>{{this}}</span>
-                </li>
-              {{/each}}
-            </ul>
-          </div>
-          <div>
-            
-            <ul class="space-y-3">
-              {{#each building_amenities}}
-                <li class="flex items-start">
-                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                  <span>{{this}}</span>
-                </li>
-              {{/each}}
-            </ul>
-          </div>
+          <ul class="space-y-3">
+            {{#each unique_points}}
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>{{this}}</span>
+              </li>
+            {{/each}}
+            {{#each indoor_features}}
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>{{this}}</span>
+              </li>
+            {{/each}}
+          </ul>
+
+          <ul class="space-y-3">
+            {{#each outdoor_features}}
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>{{this}}</span>
+              </li>
+            {{/each}}
+          </ul>
+
+          <ul class="space-y-3">
+            {{#each building_amenities}}
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>{{this}}</span>
+              </li>
+            {{/each}}
+          </ul>
         </div>
       </div>
     </section>
@@ -302,60 +313,53 @@
                   }}</span>
               </div>
 
-               <div
+              <div
                 class="flex justify-between items-center pb-3 border-b border-gray-200"
               >
                 <span class="text-gray-600">Over</span>
                 <span class="font-bold"> Over Payment </span>
               </div>
-
             </div>
-          </div>
-         
           </div>
         </div>
       </div>
     </section>
 
-
-
-
     <script>
-      // Helper functions for the template
-      document.addEventListener('DOMContentLoaded', function() { 
-        // Progress bar functionality 
+      document.addEventListener('DOMContentLoaded', function() {
+        // Progress bar functionality
         const progressBar = document.getElementById('progressBar');
-        window.addEventListener('scroll', () => { 
-          const scrollTop = document.documentElement.scrollTop; 
-          const scrollHeight = document.documentElement.scrollHeight; 
-          const clientHeight = document.documentElement.clientHeight; 
-          const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100; 
-          progressBar.style.width = scrolled + '%'; 
-        }); 
-        
+        window.addEventListener('scroll', () => {
+          const scrollTop = document.documentElement.scrollTop;
+          const scrollHeight = document.documentElement.scrollHeight;
+          const clientHeight = document.documentElement.clientHeight;
+          const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100;
+          progressBar.style.width = scrolled + '%';
+        });
+
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', function (e) { 
+          anchor.addEventListener('click', function(e) {
             e.preventDefault();
             document.querySelector(this.getAttribute('href')).scrollIntoView({
-              behavior: 'smooth' 
-            }); 
-          }); 
+              behavior: 'smooth'
+            });
+          });
         });
-        
+
         // Enhanced Image Slider
         const sliderWrapper = document.getElementById('sliderWrapper');
         const sliderPrev = document.getElementById('sliderPrev');
         const sliderNext = document.getElementById('sliderNext');
         const sliderControls = document.getElementById('sliderControls');
-        
+
         if (sliderWrapper && sliderPrev && sliderNext) {
           const sliderItems = sliderWrapper.querySelectorAll('.slider-item');
           const totalSlides = sliderItems.length;
           let currentIndex = 0;
           let slideWidth = 0;
           let isTransitioning = false;
-          
+
           // Create slider dots
           for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('div');
@@ -367,7 +371,7 @@
             });
             sliderControls.appendChild(dot);
           }
-          
+
           // Calculate slide width based on responsive breakpoints
           function calculateSlideWidth() {
             const containerWidth = sliderWrapper.parentElement.clientWidth;
@@ -385,7 +389,7 @@
               return 1;
             }
           }
-          
+
           // Initialize slider
           function initSlider() {
             const slidesPerView = calculateSlideWidth();
@@ -394,7 +398,7 @@
             });
             updateSlider();
           }
-          
+
           // Update slider position
           function updateSlider() {
             isTransitioning = true;
@@ -410,7 +414,7 @@
               isTransitioning = false;
             }, 500);
           }
-          
+
           // Go to specific slide
           function goToSlide(index) {
             const slidesPerView = calculateSlideWidth();
@@ -418,7 +422,7 @@
             currentIndex = Math.max(0, Math.min(index, maxIndex));
             updateSlider();
           }
-          
+
           // Previous slide
           sliderPrev.addEventListener('click', () => {
             if (!isTransitioning) {
@@ -426,7 +430,7 @@
               updateSlider();
             }
           });
-          
+
           // Next slide
           sliderNext.addEventListener('click', () => {
             if (!isTransitioning) {
@@ -436,7 +440,7 @@
               updateSlider();
             }
           });
-          
+
           // Handle touch events for mobile
           let touchStartX = 0;
           let touchEndX = 0;
@@ -467,12 +471,12 @@
               updateSlider();
             }
           }
-          
+
           // Handle window resize
           window.addEventListener('resize', () => {
             initSlider();
           });
-          
+
           // Initialize slider on load
           initSlider();
         }
