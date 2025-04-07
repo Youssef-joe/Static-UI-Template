@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} | Property Presentation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .property-section {
+            min-height: 100vh;
+            scroll-snap-align: start;
+        }
+        .overlay-gradient {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+        }
+        .slider-container {
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+        .slider-item {
+            scroll-snap-align: start;
+        }
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(59, 130, 246, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #3B82F6;
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Hero Section -->
+    <section class="property-section relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('{{images.[0]}}')">
+        <div class="overlay-gradient absolute inset-0"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">{{title}}</h1>
+            <p class="text-xl text-white mb-8">{{type}} • {{status}}</p>
+            <div class="flex justify-center items-center space-x-6 text-white">
+                <div class="text-center">
+                    <i class="fas fa-ruler-combined text-2xl mb-2"></i>
+                    <p>{{size}} sqft</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-bed text-2xl mb-2"></i>
+                    <p>{{bedrooms}} Bedrooms</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-bath text-2xl mb-2"></i>
+                    <p>{{bathrooms}} Bathrooms</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-dollar-sign text-2xl mb-2"></i>
+                    <p>${{formatNumber price}}</p>
+                </div>
+            </div>
+            <div class="mt-12">
+                <a href="#overview" class="text-white animate-bounce">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="property-section bg-white py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Property Overview</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Key Details</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-home text-blue-500"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-600">Property Type</p>
+                                <p class="font-semibold">{{type}}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-tag text-blue-500"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-600">Status</p>
+                                <p class="font-semibold">{{status}}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-ruler-combined text-blue-500"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-600">Size</p>
+                                <p class="font-semibold">{{size}} sqft</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-car text-blue-500"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-600">Parking</p>
+                                <p class="font-semibold">{{parking}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Unique Features</h3>
+                    <ul class="space-y-3">
+                        {{#each unique_points}}
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>{{this}}</span>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="property-section bg-gray-100 py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Gallery</h2>
+            <div class="relative overflow-x-auto">
+                <div class="slider-container flex space-x-4 overflow-x-auto pb-6">
+                    {{#each images}}
+                    <div class="slider-item flex-shrink-0 w-full sm:w-1/2 md:w-1/3 rounded-lg overflow-hidden shadow-lg">
+                        <img src="{{this}}" alt="Property Image" class="w-full h-64 object-cover">
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="property-section bg-white py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Property Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Indoor Features</h3>
+                    <ul class="space-y-3">
+                        {{#each indoor_features}}
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>{{this}}</span>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Outdoor Features</h3>
+                    <ul class="space-y-3">
+                        {{#each outdoor_features}}
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>{{this}}</span>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Building Amenities</h3>
+                    <ul class="space-y-3">
+                        {{#each building_amenities}}
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>{{this}}</span>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Details Section -->
+    <section class="property-section bg-gray-100 py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Payment Details</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-2xl font-semibold mb-6">Price Information</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center pb-3 border-b border-gray-200">
+                            <span class="text-gray-600">Price</span>
+                            <span class="font-bold text-xl">${{formatNumber price}}</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-3 border-b border-gray-200">
+                            <span class="text-gray-600">Down Payment</span>
+                            <span class="font-bold">${{formatNumber down_payment}}</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-3 border-b border-gray-200">
+                            <span class="text-gray-600">Price per sq ft</span>
+                            <span class="font-bold">${{calculatePricePerSqFt price size}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-2xl font-semibold mb-6">Payment Plan</h3>
+                    <div class="space-y-4">
+                        <div class="pb-3 border-b border-gray-200">
+                            <span class="text-gray-600">Installment Plan</span>
+                            <p class="mt-2">{{installment_plan}}</p>
+                        </div>
+                        <div class="pb-3 border-b border-gray-200">
+                            <span class="text-gray-600">Additional Fees</span>
+                            <p class="mt-2">{{additional_fees}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="property-section bg-blue-500 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-8">Interested in this property?</h2>
+            <p class="text-xl mb-12 max-w-2xl mx-auto">Contact our agent for more information or to schedule a viewing</p>
+            <div class="flex flex-col md:flex-row justify-center space-y-6 md:space-y-0 md:space-x-12">
+                <a href="mailto:{{agent_email}}" class="flex items-center justify-center bg-white text-blue-600 py-3 px-8 rounded-full hover:bg-blue-100 transition">
+                    <i class="fas fa-envelope mr-3"></i>
+                    <span>{{agent_email}}</span>
+                </a>
+                <a href="tel:{{agent_phone}}" class="flex items-center justify-center bg-white text-blue-600 py-3 px-8 rounded-full hover:bg-blue-100 transition">
+                    <i class="fas fa-phone mr-3"></i>
+                    <span>{{agent_phone}}</span>
+                </a>
+            </div>
+            {{#if virtual_tour_url}}
+            <div class="mt-12">
+                <a href="{{virtual_tour_url}}" target="_blank" class="inline-block bg-blue-700 hover:bg-blue-800 py-3 px-8 rounded-full transition">
+                    <i class="fas fa-vr-cardboard mr-3"></i>
+                    <span>View Virtual Tour</span>
+                </a>
+            </div>
+            {{/if}}
+        </div>
+    </section>
+
+    <script>
+        // Helper functions for the template
+        document.addEventListener('DOMContentLoaded', function() {
+            // Progress bar functionality
+            const progressBar = document.getElementById('progressBar');
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight;
+                const clientHeight = document.documentElement.clientHeight;
+                const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100;
+                progressBar.style.width = scrolled + '%';
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
