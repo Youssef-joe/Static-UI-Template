@@ -56,7 +56,8 @@ app.post('/api/properties', async (req, res) => {
       additional_fees,
       images,
       agent_email,
-      agent_phone
+      agent_phone,
+      description
     } = req.body;
 
     // Insert into Supabase
@@ -81,7 +82,8 @@ app.post('/api/properties', async (req, res) => {
         additional_fees,
         images,
         agent_email,
-        agent_phone
+        agent_phone,
+        description
       }])
       .select();
     

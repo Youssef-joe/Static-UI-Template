@@ -1,270 +1,483 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{title}} | Property Presentation</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./../public/css/style.css">
     <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            scroll-behavior: smooth;
-        }
-        .property-section {
-            min-height: 100vh;
-            scroll-snap-align: start;
-        }
-        .overlay-gradient {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
-        }
-        .slider-container {
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-        }
+      body { font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; }
+      .property-section { min-height: 100vh; scroll-snap-align: start; }
+      .overlay-gradient { background: linear-gradient(to bottom,
+      rgba(0,0,0,0.1), rgba(0,0,0,0.7)); } 
+      
+      /* Enhanced slider styles */
+      .slider-container { 
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+      .slider-wrapper {
+        display: flex;
+        transition: transform 0.5s ease;
+      }
+      .slider-item { 
+        flex: 0 0 100%;
+      }
+      @media (min-width: 640px) {
         .slider-item {
-            scroll-snap-align: start;
+          flex: 0 0 50%;
         }
-        .feature-icon {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(59, 130, 246, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            margin-right: 15px;
+      }
+      @media (min-width: 768px) {
+        .slider-item {
+          flex: 0 0 33.333%;
         }
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: #3B82F6;
-            z-index: 1000;
-            transition: width 0.3s ease;
-        }
+      }
+      .slider-controls {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+      .slider-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(59, 130, 246, 0.5);
+        margin: 0 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .slider-dot.active {
+        width: 24px;
+        border-radius: 4px;
+        background: rgba(59, 130, 246, 1);
+      }
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .slider-nav.prev {
+        left: 10px;
+      }
+      .slider-nav.next {
+        right: 10px;
+      }
+      
+      .feature-icon { width: 50px; height: 50px; background-color:
+      rgba(59, 130, 246, 0.1); display: flex; align-items: center;
+      justify-content: center; border-radius: 50%; margin-right: 15px; }
+      .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background:
+      #3B82F6; z-index: 1000; transition: width 0.3s ease; }
     </style>
-</head>
-<body class="bg-gray-100">
+  </head>
+  <body class="bg-gray-100">
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
-    
+
     <!-- Hero Section -->
-    <section class="property-section relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('{{images.[0]}}')">
-        <div class="overlay-gradient absolute inset-0"></div>
-        <div class="container mx-auto px-6 relative z-10 text-center">
-            <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">{{title}}</h1>
-            <p class="text-xl text-white mb-8">{{type}} • {{status}}</p>
-            <div class="flex justify-center items-center space-x-6 text-white">
-                <div class="text-center">
-                    <i class="fas fa-ruler-combined text-2xl mb-2"></i>
-                    <p>{{size}} sqft</p>
-                </div>
-                <div class="text-center">
-                    <i class="fas fa-bed text-2xl mb-2"></i>
-                    <p>{{bedrooms}} Bedrooms</p>
-                </div>
-                <div class="text-center">
-                    <i class="fas fa-bath text-2xl mb-2"></i>
-                    <p>{{bathrooms}} Bathrooms</p>
-                </div>
-                <div class="text-center">
-                    <i class="fas fa-dollar-sign text-2xl mb-2"></i>
-                    <p>${{formatNumber price}}</p>
-                </div>
+    <section
+      class="property-section relative h-screen flex items-center justify-center bg-cover bg-center"
+      style="background-image: url('https://images.pexels.com/photos/5834026/pexels-photo-5834026.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"
+    >
+      <div class="overlay-gradient absolute inset-0"></div>
+      <div class="container mx-auto px-6 relative z-10 text-center">
+        <h1
+          class="text-5xl md:text-6xl font-bold text-white mb-4"
+        >{{title}}</h1>
+        <p class="text-xl text-white mb-8">{{type}} • {{status}}</p>
+        <div class="flex justify-center items-center space-x-6 text-white">
+          <div class="text-center">
+            <i class="fas fa-ruler-combined text-2xl mb-2"></i>
+            <p>{{size}} sqft</p>
+          </div>
+          <div class="text-center">
+            <i class="fas fa-bed text-2xl mb-2"></i>
+            <p>{{bedrooms}} Bedrooms</p>
+          </div>
+          <div class="text-center">
+            <i class="fas fa-bath text-2xl mb-2"></i>
+            <p>{{bathrooms}} Bathrooms</p>
+          </div>
+          <div class="text-center">
+            <i class="fas fa-dollar-sign text-2xl mb-2"></i>
+            <p>${{formatNumber price}}</p>
+          </div>
+        </div>
+        <div class="mt-12">
+          <a href="#image-slider" class="text-white animate-bounce">
+            <i class="fas fa-chevron-down text-2xl"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Image Slider Section (Moved here) -->
+    <section id="image-slider" class="property-section bg-gray-100 py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-16">Property Gallery</h2>
+        <div class="relative">
+          <!-- Enhanced slider -->
+          <div class="slider-container" id="imageSlider">
+            <div class="slider-nav prev" id="sliderPrev">
+              <i class="fas fa-chevron-left"></i>
             </div>
-            <div class="mt-12">
-                <a href="#overview" class="text-white animate-bounce">
-                    <i class="fas fa-chevron-down text-2xl"></i>
-                </a>
+            <div class="slider-nav next" id="sliderNext">
+              <i class="fas fa-chevron-right"></i>
             </div>
+            <div class="slider-wrapper" id="sliderWrapper">
+              {{#each images}}
+                <div class="slider-item px-2">
+                  <div class="rounded-lg overflow-hidden shadow-lg">
+                    <img
+                      src="{{this}}"
+                      alt="Property Image"
+                      class="w-full h-64 object-cover"
+                    />
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+          <div class="slider-controls mt-4" id="sliderControls"></div>
+        </div>
+        <div class="mt-12 text-center">
+          <a href="#overview" class="text-blue-500 hover:text-blue-700">
+            <i class="fas fa-chevron-down text-2xl"></i>
+            <p class="mt-2">View Property Details</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    
+        {{!-- Description Section --}}
+    <section class="property-section bg-gray-100 py-20">
+        <div class="text-center text-3xl">
+            <div id="desc" >Here's The Description </div>
+            {{description}}
         </div>
     </section>
 
     <!-- Overview Section -->
     <section id="overview" class="property-section bg-white py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16">Property Overview</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div>
-                    <h3 class="text-2xl font-semibold mb-6">Key Details</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <div class="feature-icon">
-                                <i class="fas fa-home text-blue-500"></i>
-                            </div>
-                            <div>
-                                <p class="text-gray-600">Property Type</p>
-                                <p class="font-semibold">{{type}}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="feature-icon">
-                                <i class="fas fa-tag text-blue-500"></i>
-                            </div>
-                            <div>
-                                <p class="text-gray-600">Status</p>
-                                <p class="font-semibold">{{status}}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="feature-icon">
-                                <i class="fas fa-ruler-combined text-blue-500"></i>
-                            </div>
-                            <div>
-                                <p class="text-gray-600">Size</p>
-                                <p class="font-semibold">{{size}} sqft</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="feature-icon">
-                                <i class="fas fa-car text-blue-500"></i>
-                            </div>
-                            <div>
-                                <p class="text-gray-600">Parking</p>
-                                <p class="font-semibold">{{parking}}</p>
-                            </div>
-                        </div>
-                    </div>
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-16">Property Overview</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div>
+            <h3 class="text-2xl font-semibold mb-6">Key Details</h3>
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <div class="feature-icon">
+                  <i class="fas fa-home text-blue-500"></i>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-semibold mb-6">Unique Features</h3>
-                    <ul class="space-y-3">
-                        {{#each unique_points}}
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            <span>{{this}}</span>
-                        </li>
-                        {{/each}}
-                    </ul>
+                  <p class="text-gray-600">Property Type</p>
+                  <p class="font-semibold">{{type}}</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="property-section bg-gray-100 py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16">Gallery</h2>
-            <div class="relative overflow-x-auto">
-                <div class="slider-container flex space-x-4 overflow-x-auto pb-6">
-                    {{#each images}}
-                    <div class="slider-item flex-shrink-0 w-full sm:w-1/2 md:w-1/3 rounded-lg overflow-hidden shadow-lg">
-                        <img src="{{this}}" alt="Property Image" class="w-full h-64 object-cover">
-                    </div>
-                    {{/each}}
+              </div>
+              <div class="flex items-center">
+                <div class="feature-icon">
+                  <i class="fas fa-tag text-blue-500"></i>
                 </div>
+                <div>
+                  <p class="text-gray-600">Status</p>
+                  <p class="font-semibold">{{status}}</p>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <div class="feature-icon">
+                  <i class="fas fa-ruler-combined text-blue-500"></i>
+                </div>
+                <div>
+                  <p class="text-gray-600">Size</p>
+                  <p class="font-semibold">{{size}} sqft</p>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <div class="feature-icon">
+                  <i class="fas fa-car text-blue-500"></i>
+                </div>
+                <div>
+                  <p class="text-gray-600">Parking</p>
+                  <p class="font-semibold">{{parking}}</p>
+                </div>
+              </div>
             </div>
+          </div>
+          <div>
+            <h3 class="text-2xl font-semibold mb-6">Unique Features</h3>
+            <ul class="space-y-3">
+              {{#each unique_points}}
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                  <span>{{this}}</span>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Features Section -->
-    <section class="property-section bg-white py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16">Property Features</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div>
-                    <h3 class="text-2xl font-semibold mb-6">Indoor Features</h3>
-                    <ul class="space-y-3">
-                        {{#each indoor_features}}
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            <span>{{this}}</span>
-                        </li>
-                        {{/each}}
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-semibold mb-6">Outdoor Features</h3>
-                    <ul class="space-y-3">
-                        {{#each outdoor_features}}
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            <span>{{this}}</span>
-                        </li>
-                        {{/each}}
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-semibold mb-6">Building Amenities</h3>
-                    <ul class="space-y-3">
-                        {{#each building_amenities}}
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            <span>{{this}}</span>
-                        </li>
-                        {{/each}}
-                    </ul>
-                </div>
-            </div>
+    <section class="property-section bg-gray-100 py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-16">Property Features</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div>
+            
+            <ul class="space-y-3">
+              {{#each indoor_features}}
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                  <span>{{this}}</span>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+          <div>
+           
+            <ul class="space-y-3">
+              {{#each outdoor_features}}
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                  <span>{{this}}</span>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+          <div>
+            
+            <ul class="space-y-3">
+              {{#each building_amenities}}
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                  <span>{{this}}</span>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Payment Details Section -->
-    <section class="property-section bg-gray-100 py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16">Payment Details</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div class="bg-white rounded-lg shadow-lg p-8">
-                    <h3 class="text-2xl font-semibold mb-6">Price Information</h3>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center pb-3 border-b border-gray-200">
-                            <span class="text-gray-600">Price</span>
-                            <span class="font-bold text-xl">${{formatNumber price}}</span>
-                        </div>
-                        <div class="flex justify-between items-center pb-3 border-b border-gray-200">
-                            <span class="text-gray-600">Down Payment</span>
-                            <span class="font-bold">${{formatNumber down_payment}}</span>
-                        </div>
-                        <div class="flex justify-between items-center pb-3 border-b border-gray-200">
-                            <span class="text-gray-600">Price per sq ft</span>
-                            <span class="font-bold">${{calculatePricePerSqFt price size}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg p-8">
-                    <h3 class="text-2xl font-semibold mb-6">Payment Plan</h3>
-                    <div class="space-y-4">
-                        <div class="pb-3 border-b border-gray-200">
-                            <span class="text-gray-600">Installment Plan</span>
-                            <p class="mt-2">{{installment_plan}}</p>
-                        </div>
-                        <div class="pb-3 border-b border-gray-200">
-                            <span class="text-gray-600">Additional Fees</span>
-                            <p class="mt-2">{{additional_fees}}</p>
-                        </div>
-                    </div>
-                </div>
+    <section class="property-section bg-white py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-16">Payment Details</h2>
+        <div class="grid grid-cols-1 md:grid-cols-1 gap-12">
+          <div class="bg-white rounded-lg shadow-lg p-8">
+            <h3 class="text-2xl font-semibold mb-6">Price Information</h3>
+            <div class="space-y-4">
+              <div
+                class="flex justify-between items-center pb-3 border-b border-gray-200"
+              >
+                <span class="text-gray-600">Price</span>
+                <span class="font-bold text-xl">${{formatNumber price}}</span>
+              </div>
+              <div
+                class="flex justify-between items-center pb-3 border-b border-gray-200"
+              >
+                <span class="text-gray-600">Down Payment</span>
+                <span class="font-bold">${{formatNumber down_payment}}</span>
+              </div>
+              <div
+                class="flex justify-between items-center pb-3 border-b border-gray-200"
+              >
+                <span class="text-gray-600">Price per sq ft</span>
+                <span class="font-bold">${{calculatePricePerSqFt
+                    price
+                    size
+                  }}</span>
+              </div>
             </div>
+          </div>
+         
+          </div>
         </div>
+      </div>
     </section>
 
-                                            
+
+
 
     <script>
-        // Helper functions for the template
-        document.addEventListener('DOMContentLoaded', function() {
-            // Progress bar functionality
-            const progressBar = document.getElementById('progressBar');
-            window.addEventListener('scroll', () => {
-                const scrollTop = document.documentElement.scrollTop;
-                const scrollHeight = document.documentElement.scrollHeight;
-                const clientHeight = document.documentElement.clientHeight;
-                const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100;
-                progressBar.style.width = scrolled + '%';
-            });
-
-            // Smooth scroll for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
+      // Helper functions for the template
+      document.addEventListener('DOMContentLoaded', function() { 
+        // Progress bar functionality 
+        const progressBar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => { 
+          const scrollTop = document.documentElement.scrollTop; 
+          const scrollHeight = document.documentElement.scrollHeight; 
+          const clientHeight = document.documentElement.clientHeight; 
+          const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100; 
+          progressBar.style.width = scrolled + '%'; 
+        }); 
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) { 
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+              behavior: 'smooth' 
+            }); 
+          }); 
         });
+        
+        // Enhanced Image Slider
+        const sliderWrapper = document.getElementById('sliderWrapper');
+        const sliderPrev = document.getElementById('sliderPrev');
+        const sliderNext = document.getElementById('sliderNext');
+        const sliderControls = document.getElementById('sliderControls');
+        
+        if (sliderWrapper && sliderPrev && sliderNext) {
+          const sliderItems = sliderWrapper.querySelectorAll('.slider-item');
+          const totalSlides = sliderItems.length;
+          let currentIndex = 0;
+          let slideWidth = 0;
+          let isTransitioning = false;
+          
+          // Create slider dots
+          for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = `slider-dot ${i === 0 ? 'active' : ''}`;
+            dot.addEventListener('click', () => {
+              if (!isTransitioning) {
+                goToSlide(i);
+              }
+            });
+            sliderControls.appendChild(dot);
+          }
+          
+          // Calculate slide width based on responsive breakpoints
+          function calculateSlideWidth() {
+            const containerWidth = sliderWrapper.parentElement.clientWidth;
+            if (window.innerWidth >= 768) {
+              // 3 slides per view on md screens
+              slideWidth = containerWidth / 3;
+              return 3;
+            } else if (window.innerWidth >= 640) {
+              // 2 slides per view on sm screens
+              slideWidth = containerWidth / 2;
+              return 2;
+            } else {
+              // 1 slide per view on xs screens
+              slideWidth = containerWidth;
+              return 1;
+            }
+          }
+          
+          // Initialize slider
+          function initSlider() {
+            const slidesPerView = calculateSlideWidth();
+            sliderItems.forEach(item => {
+              item.style.width = `${slideWidth}px`;
+            });
+            updateSlider();
+          }
+          
+          // Update slider position
+          function updateSlider() {
+            isTransitioning = true;
+            sliderWrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            
+            // Update dots
+            const dots = sliderControls.querySelectorAll('.slider-dot');
+            dots.forEach((dot, index) => {
+              dot.className = `slider-dot ${index === currentIndex ? 'active' : ''}`;
+            });
+            
+            setTimeout(() => {
+              isTransitioning = false;
+            }, 500);
+          }
+          
+          // Go to specific slide
+          function goToSlide(index) {
+            const slidesPerView = calculateSlideWidth();
+            const maxIndex = totalSlides - slidesPerView;
+            currentIndex = Math.max(0, Math.min(index, maxIndex));
+            updateSlider();
+          }
+          
+          // Previous slide
+          sliderPrev.addEventListener('click', () => {
+            if (!isTransitioning) {
+              currentIndex = Math.max(0, currentIndex - 1);
+              updateSlider();
+            }
+          });
+          
+          // Next slide
+          sliderNext.addEventListener('click', () => {
+            if (!isTransitioning) {
+              const slidesPerView = calculateSlideWidth();
+              const maxIndex = totalSlides - slidesPerView;
+              currentIndex = Math.min(maxIndex, currentIndex + 1);
+              updateSlider();
+            }
+          });
+          
+          // Handle touch events for mobile
+          let touchStartX = 0;
+          let touchEndX = 0;
+          
+          sliderWrapper.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+          }, { passive: true });
+          
+          sliderWrapper.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+          }, { passive: true });
+          
+          function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (!isTransitioning && Math.abs(diff) > swipeThreshold) {
+              if (diff > 0) {
+                // Swipe left, go to next slide
+                const slidesPerView = calculateSlideWidth();
+                const maxIndex = totalSlides - slidesPerView;
+                currentIndex = Math.min(maxIndex, currentIndex + 1);
+              } else {
+                // Swipe right, go to previous slide
+                currentIndex = Math.max(0, currentIndex - 1);
+              }
+              updateSlider();
+            }
+          }
+          
+          // Handle window resize
+          window.addEventListener('resize', () => {
+            initSlider();
+          });
+          
+          // Initialize slider on load
+          initSlider();
+        }
+      });
     </script>
-</body>
+  </body>
 </html>
