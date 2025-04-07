@@ -160,25 +160,17 @@
           <div class="slider-controls mt-4" id="sliderControls"></div>
         </div>
         <div class="mt-12 text-center">
-          <a href="#overview" class="text-blue-500 hover:text-blue-700">
-            <i class="fas fa-chevron-down text-2xl"></i>
-            <p class="mt-2">View Property Details</p>
-          </a>
+
+            <!-- Here's The Description  -->
+          <div id="desc">
+                <h3>Description</h3>
+                <p>{{description}}</p>
+          </div>
         </div>
       </div>
     </section>
 
-
-    
-        {{!-- Description Section --}}
-    <section class="property-section bg-gray-100 py-20">
-        <div class="text-center text-3xl">
-            <div id="desc" >Here's The Description </div>
-            {{description}}
-        </div>
-    </section>
-
-    <!-- Overview Section -->
+    {{!-- <!-- Overview Section -->
     <section id="overview" class="property-section bg-white py-20">
       <div class="container mx-auto px-6">
         <h2 class="text-4xl font-bold text-center mb-16">Property Overview</h2>
@@ -225,7 +217,15 @@
             </div>
           </div>
           <div>
-            <h3 class="text-2xl font-semibold mb-6">Unique Features</h3>
+          </div>
+        </div>
+      </div>
+    </section> --}}
+
+    <!-- Features Section -->
+    <section class="property-section bg-gray-100 py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-16">Unique Features</h2>
             <ul class="space-y-3">
               {{#each unique_points}}
                 <li class="flex items-start">
@@ -234,15 +234,6 @@
                 </li>
               {{/each}}
             </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="property-section bg-gray-100 py-20">
-      <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center mb-16">Property Features</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div>
             
@@ -310,6 +301,14 @@
                     size
                   }}</span>
               </div>
+
+               <div
+                class="flex justify-between items-center pb-3 border-b border-gray-200"
+              >
+                <span class="text-gray-600">Over</span>
+                <span class="font-bold"> Over Payment </span>
+              </div>
+
             </div>
           </div>
          
