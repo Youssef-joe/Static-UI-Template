@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: property-presentation
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: SUPABASE_URL
+        value: your-supabase-url
+      - key: SUPABASE_KEY
+        value: your-supabase-key
+      - key: PORT
+        value: 10000  # Render uses 10000 by default

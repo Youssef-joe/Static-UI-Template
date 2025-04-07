@@ -7,6 +7,7 @@
     "express": "^5.1.0",
     "handlebars": "^4.7.8",
     "mongoose": "^8.13.2",
+    "nodemon": "^3.1.9",
     "uuid": "^11.1.0"
   }
 }
