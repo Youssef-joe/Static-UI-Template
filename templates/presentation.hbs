@@ -106,6 +106,238 @@
         z-index: 1000;
         transition: width 0.3s ease; 
       }
+
+
+      {{!-- Here's The Style Of The Links Layout [Last Block In The Page] --}}
+       .connect-container {
+      max-width: 800px;
+      width: 100%;
+      padding: 2rem;
+      background: linear-gradient(135deg, #8e2de2, #4a00e0);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      color: white;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .connect-container::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      top: -150px;
+      right: -150px;
+    }
+    
+    .connect-heading {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .connect-subheading {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .chatbot-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .chatbot-card {
+      flex: 1;
+      min-width: 250px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      padding: 1.5rem;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .chatbot-card:hover {
+      transform: translateY(-10px);
+      background-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .chatbot-card::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 5px;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      animation: shine 2s infinite;
+      transform: translateX(-100%);
+    }
+    
+    @keyframes shine {
+      to {
+        transform: translateX(100%);
+      }
+    }
+    
+    .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    
+    .ig {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .wa {
+      color: #25D366;
+    }
+    
+    .chatbot-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .chatbot-card p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+    
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .button:hover {
+      background-color: white;
+      color: #4a00e0;
+      border-color: white;
+    }
+    
+    .button-ig:hover {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white;
+      border-color: transparent;
+    }
+    
+    .button-wa:hover {
+      background-color: #25D366;
+      color: white;
+      border-color: #25D366;
+    }
+    
+    .pulse {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(6);
+        opacity: 0;
+      }
+    }
+    
+    .floating-bubbles span {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      animation: float 5s infinite linear;
+    }
+    
+    .floating-bubbles span:nth-child(1) {
+      width: 60px;
+      height: 60px;
+      left: 20%;
+      bottom: 10%;
+      animation-delay: 0s;
+      animation-duration: 8s;
+    }
+    
+    .floating-bubbles span:nth-child(2) {
+      width: 40px;
+      height: 40px;
+      left: 70%;
+      bottom: 30%;
+      animation-delay: 2s;
+      animation-duration: 10s;
+    }
+    
+    .floating-bubbles span:nth-child(3) {
+      width: 25px;
+      height: 25px;
+      left: 40%;
+      bottom: 60%;
+      animation-delay: 4s;
+      animation-duration: 7s;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(-100px) rotate(180deg);
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(-200px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .connect-container {
+        padding: 1.5rem;
+      }
+      
+      .connect-heading {
+        font-size: 2rem;
+      }
+      
+      .chatbot-links {
+        flex-direction: column;
+      }
+    }
     </style>
   </head>
   <body class="bg-gray-100">
@@ -262,7 +494,7 @@
             {{/each}}
           </ul>
 
-          <ul class="space-y-3">
+          {{!-- <ul class="space-y-3">
             {{#each outdoor_features}}
               <li class="flex items-start">
                 <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
@@ -278,7 +510,7 @@
                 <span>{{this}}</span>
               </li>
             {{/each}}
-          </ul>
+          </ul> --}}
         </div>
       </div>
     </section>
@@ -316,14 +548,64 @@
               <div
                 class="flex justify-between items-center pb-3 border-b border-gray-200"
               >
-                <span class="text-gray-600">Over</span>
-                <span class="font-bold"> Over Payment </span>
+                <span class="text-gray-600">Over Payment</span>
+                <span class="font-bold">${{over_payment}} </span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+
+    <!-- Links Layout [Last Block In The Page] -->
+     {{!-- <section class="connect-container ">
+    <div class="floating-bubbles">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <h2 class="connect-heading">Connect With Our Chatbots</h2>
+    <p class="connect-subheading">Get instant assistance and stay connected with our AI-powered chatbots on your favorite platforms.</p>
+    
+    <div class="chatbot-links">
+      <div class="chatbot-card">
+        <div class="pulse"></div>
+        <span class="icon ig">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7ZM9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12Z" fill="url(#instagram-gradient)"/>
+            <path d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z" fill="url(#instagram-gradient)"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M5 1C2.79086 1 1 2.79086 1 5V19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5ZM19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z" fill="url(#instagram-gradient)"/>
+            <defs>
+              <linearGradient id="instagram-gradient" x1="1" y1="1" x2="23" y2="23" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#f09433"/>
+                <stop offset="0.25" stop-color="#e6683c"/>
+                <stop offset="0.5" stop-color="#dc2743"/>
+                <stop offset="0.75" stop-color="#cc2366"/>
+                <stop offset="1" stop-color="#bc1888"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <h3>Instagram Chatbot</h3>
+        <p>Follow our Instagram profile and start chatting with our AI assistant instantly. Get product recommendations, support, and more!</p>
+        <a href="https://instagram.com/YourInstagramHandle" class="button button-ig">Connect on Instagram</a>
+      </div>
+      
+      <div class="chatbot-card">
+        <div class="pulse"></div>
+        <span class="icon wa">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.4153 14.5953C17.1364 14.4561 15.6561 13.7289 15.3997 13.6347C15.1432 13.5405 14.9527 13.4933 14.7622 13.774C14.5716 14.0547 14.0021 14.7347 13.8342 14.9259C13.6662 15.1171 13.4983 15.14 13.2193 15.0008C12.9404 14.8616 11.9543 14.5429 10.7919 13.5166C9.87869 12.7223 9.25657 11.7425 9.08861 11.4618C8.92066 11.1811 9.06963 11.0247 9.21261 10.8812C9.34159 10.7506 9.49889 10.5407 9.64385 10.3724C9.78882 10.2041 9.83596 10.0843 9.9297 9.89305C10.0234 9.70181 9.97628 9.53348 9.90598 9.39425C9.83596 9.25501 9.21655 7.76825 8.97939 7.20681C8.74223 6.66092 8.50479 6.73613 8.32719 6.72501C8.15924 6.71446 7.96866 6.71446 7.7781 6.71446C7.58754 6.71446 7.27824 6.78481 7.0218 7.0655C6.76537 7.34619 5.9939 8.07339 5.9939 9.56014C5.9939 11.0469 7.05 12.4865 7.19496 12.6777C7.33993 12.869 9.25255 15.81 12.1606 17.0907C12.8934 17.4107 13.4663 17.6078 13.9109 17.7543C14.6324 17.9939 15.2843 17.9595 15.7975 17.8878C16.3693 17.8088 17.5548 17.165 17.7919 16.5095C18.029 15.8539 18.029 15.2925 17.9587 15.1742C17.8884 15.0559 17.6943 14.9838 17.4153 14.8446M12.0412 21.3182H12.0367C10.2669 21.3186 8.53324 20.8058 7.0292 19.8462L6.66195 19.6291L2.89285 20.6451L3.92375 16.959L3.68658 16.5799C2.64043 15.0276 2.08931 13.2034 2.09258 11.3393C2.09445 6.02808 6.39911 1.72342 12.0458 1.72342C14.7874 1.72342 17.3469 2.78969 19.2595 4.70345C20.2056 5.64492 20.9539 6.762 21.461 7.994C21.9681 9.22599 22.2244 10.5457 22.2183 11.8783C22.2164 17.1895 17.9117 21.3182 12.0412 21.3182M20.5433 3.42025C19.3941 2.26406 18.0125 1.34931 16.486 0.730029C14.9595 0.110747 13.3209 -0.106362 11.6979 0.0915396C5.32053 0.763386 0.343429 6.35396 0.351289 13.0246C0.351289 15.2858 0.9714 17.4797 2.14168 19.396L0 24L4.73141 21.9104C6.58141 22.9853 8.67953 23.5533 10.819 23.5539H10.8244C17.2018 23.5539 22.1789 17.9633 22.171 11.2927C22.3712 9.67059 22.1553 8.03182 21.5384 6.5058C20.9214 4.97977 19.9184 3.59814 18.6742 2.45402" fill="#25D366"/>
+          </svg>
+        </span>
+        <h3>WhatsApp Business</h3>
+        <p>Chat with our virtual assistant on WhatsApp for quick support, order status updates, and seamless communication.</p>
+        <a href="https://wa.me/1234567890" class="button button-wa">Message on WhatsApp</a>
+      </div>
+    </div>
+  </section> --}}
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -481,6 +763,382 @@
           initSlider();
         }
       });
+
+      document.addEventListener('DOMContentLoaded', () => {
+      // Add animation to cards on load
+      const cards = document.querySelectorAll('.chatbot-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(30px)';
+          
+          setTimeout(() => {
+            card.style.transition = 'all 0.8s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 100);
+        }, index * 200);
+      });
+      
+      // Add random floating bubbles
+      const container = document.querySelector('.connect-container');
+      for (let i = 0; i < 8; i++) {
+        const bubble = document.createElement('div');
+        bubble.style.position = 'absolute';
+        bubble.style.width = `${Math.random() * 40 + 10}px`;
+        bubble.style.height = bubble.style.width;
+        bubble.style.borderRadius = '50%';
+        bubble.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+        bubble.style.bottom = `-${bubble.style.width}`;
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.animation = `float ${Math.random() * 5 + 8}s linear infinite`;
+        bubble.style.animationDelay = `${Math.random() * 5}s`;
+        container.appendChild(bubble);
+      }
+    });
     </script>
   </body>
 </html>
+
+
+
+
+
+{{!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect With Our Chatbots</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    
+    .connect-container {
+      max-width: 800px;
+      width: 100%;
+      padding: 2rem;
+      background: linear-gradient(135deg, #8e2de2, #4a00e0);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      color: white;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .connect-container::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      top: -150px;
+      right: -150px;
+    }
+    
+    .connect-heading {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .connect-subheading {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .chatbot-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .chatbot-card {
+      flex: 1;
+      min-width: 250px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      padding: 1.5rem;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .chatbot-card:hover {
+      transform: translateY(-10px);
+      background-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .chatbot-card::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 5px;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      animation: shine 2s infinite;
+      transform: translateX(-100%);
+    }
+    
+    @keyframes shine {
+      to {
+        transform: translateX(100%);
+      }
+    }
+    
+    .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    
+    .ig {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .wa {
+      color: #25D366;
+    }
+    
+    .chatbot-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .chatbot-card p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+    
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .button:hover {
+      background-color: white;
+      color: #4a00e0;
+      border-color: white;
+    }
+    
+    .button-ig:hover {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white;
+      border-color: transparent;
+    }
+    
+    .button-wa:hover {
+      background-color: #25D366;
+      color: white;
+      border-color: #25D366;
+    }
+    
+    .pulse {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(6);
+        opacity: 0;
+      }
+    }
+    
+    .floating-bubbles span {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      animation: float 5s infinite linear;
+    }
+    
+    .floating-bubbles span:nth-child(1) {
+      width: 60px;
+      height: 60px;
+      left: 20%;
+      bottom: 10%;
+      animation-delay: 0s;
+      animation-duration: 8s;
+    }
+    
+    .floating-bubbles span:nth-child(2) {
+      width: 40px;
+      height: 40px;
+      left: 70%;
+      bottom: 30%;
+      animation-delay: 2s;
+      animation-duration: 10s;
+    }
+    
+    .floating-bubbles span:nth-child(3) {
+      width: 25px;
+      height: 25px;
+      left: 40%;
+      bottom: 60%;
+      animation-delay: 4s;
+      animation-duration: 7s;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(-100px) rotate(180deg);
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(-200px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .connect-container {
+        padding: 1.5rem;
+      }
+      
+      .connect-heading {
+        font-size: 2rem;
+      }
+      
+      .chatbot-links {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="connect-container">
+    <div class="floating-bubbles">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <h2 class="connect-heading">Connect With Our Chatbots</h2>
+    <p class="connect-subheading">Get instant assistance and stay connected with our AI-powered chatbots on your favorite platforms.</p>
+    
+    <div class="chatbot-links">
+      <div class="chatbot-card">
+        <div class="pulse"></div>
+        <span class="icon ig">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7ZM9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12Z" fill="url(#instagram-gradient)"/>
+            <path d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z" fill="url(#instagram-gradient)"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M5 1C2.79086 1 1 2.79086 1 5V19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5ZM19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z" fill="url(#instagram-gradient)"/>
+            <defs>
+              <linearGradient id="instagram-gradient" x1="1" y1="1" x2="23" y2="23" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#f09433"/>
+                <stop offset="0.25" stop-color="#e6683c"/>
+                <stop offset="0.5" stop-color="#dc2743"/>
+                <stop offset="0.75" stop-color="#cc2366"/>
+                <stop offset="1" stop-color="#bc1888"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <h3>Instagram Chatbot</h3>
+        <p>Follow our Instagram profile and start chatting with our AI assistant instantly. Get product recommendations, support, and more!</p>
+        <a href="https://instagram.com/YourInstagramHandle" class="button button-ig">Connect on Instagram</a>
+      </div>
+      
+      <div class="chatbot-card">
+        <div class="pulse"></div>
+        <span class="icon wa">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.4153 14.5953C17.1364 14.4561 15.6561 13.7289 15.3997 13.6347C15.1432 13.5405 14.9527 13.4933 14.7622 13.774C14.5716 14.0547 14.0021 14.7347 13.8342 14.9259C13.6662 15.1171 13.4983 15.14 13.2193 15.0008C12.9404 14.8616 11.9543 14.5429 10.7919 13.5166C9.87869 12.7223 9.25657 11.7425 9.08861 11.4618C8.92066 11.1811 9.06963 11.0247 9.21261 10.8812C9.34159 10.7506 9.49889 10.5407 9.64385 10.3724C9.78882 10.2041 9.83596 10.0843 9.9297 9.89305C10.0234 9.70181 9.97628 9.53348 9.90598 9.39425C9.83596 9.25501 9.21655 7.76825 8.97939 7.20681C8.74223 6.66092 8.50479 6.73613 8.32719 6.72501C8.15924 6.71446 7.96866 6.71446 7.7781 6.71446C7.58754 6.71446 7.27824 6.78481 7.0218 7.0655C6.76537 7.34619 5.9939 8.07339 5.9939 9.56014C5.9939 11.0469 7.05 12.4865 7.19496 12.6777C7.33993 12.869 9.25255 15.81 12.1606 17.0907C12.8934 17.4107 13.4663 17.6078 13.9109 17.7543C14.6324 17.9939 15.2843 17.9595 15.7975 17.8878C16.3693 17.8088 17.5548 17.165 17.7919 16.5095C18.029 15.8539 18.029 15.2925 17.9587 15.1742C17.8884 15.0559 17.6943 14.9838 17.4153 14.8446M12.0412 21.3182H12.0367C10.2669 21.3186 8.53324 20.8058 7.0292 19.8462L6.66195 19.6291L2.89285 20.6451L3.92375 16.959L3.68658 16.5799C2.64043 15.0276 2.08931 13.2034 2.09258 11.3393C2.09445 6.02808 6.39911 1.72342 12.0458 1.72342C14.7874 1.72342 17.3469 2.78969 19.2595 4.70345C20.2056 5.64492 20.9539 6.762 21.461 7.994C21.9681 9.22599 22.2244 10.5457 22.2183 11.8783C22.2164 17.1895 17.9117 21.3182 12.0412 21.3182M20.5433 3.42025C19.3941 2.26406 18.0125 1.34931 16.486 0.730029C14.9595 0.110747 13.3209 -0.106362 11.6979 0.0915396C5.32053 0.763386 0.343429 6.35396 0.351289 13.0246C0.351289 15.2858 0.9714 17.4797 2.14168 19.396L0 24L4.73141 21.9104C6.58141 22.9853 8.67953 23.5533 10.819 23.5539H10.8244C17.2018 23.5539 22.1789 17.9633 22.171 11.2927C22.3712 9.67059 22.1553 8.03182 21.5384 6.5058C20.9214 4.97977 19.9184 3.59814 18.6742 2.45402" fill="#25D366"/>
+          </svg>
+        </span>
+        <h3>WhatsApp Business</h3>
+        <p>Chat with our virtual assistant on WhatsApp for quick support, order status updates, and seamless communication.</p>
+        <a href="https://wa.me/1234567890" class="button button-wa">Message on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add animation to cards on load
+      const cards = document.querySelectorAll('.chatbot-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(30px)';
+          
+          setTimeout(() => {
+            card.style.transition = 'all 0.8s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 100);
+        }, index * 200);
+      });
+      
+      // Add random floating bubbles
+      const container = document.querySelector('.connect-container');
+      for (let i = 0; i < 8; i++) {
+        const bubble = document.createElement('div');
+        bubble.style.position = 'absolute';
+        bubble.style.width = `${Math.random() * 40 + 10}px`;
+        bubble.style.height = bubble.style.width;
+        bubble.style.borderRadius = '50%';
+        bubble.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+        bubble.style.bottom = `-${bubble.style.width}`;
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.animation = `float ${Math.random() * 5 + 8}s linear infinite`;
+        bubble.style.animationDelay = `${Math.random() * 5}s`;
+        container.appendChild(bubble);
+      }
+    });
+  </script>
+</body>
+</html> --}}
