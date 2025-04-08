@@ -13,331 +13,85 @@
     />
     <link rel="stylesheet" href="./../public/css/style.css" />
     <style>
-      body { 
-        font-family: 'Montserrat', sans-serif; 
-        scroll-behavior: smooth; 
-      }
-      .property-section { 
-        min-height: 100vh; 
-        scroll-snap-align: start; 
-      }
-      .overlay-gradient { 
-        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7)); 
-      } 
-      /* Enhanced slider styles */
-      .slider-container { 
-        position: relative; 
-        width: 100%; 
-        overflow: hidden; 
-      }
-      .slider-wrapper { 
-        display: flex; 
-        transition: transform 0.5s ease; 
-      }
-      .slider-item { 
-        flex: 0 0 100%; 
-      } 
-      @media (min-width: 640px) { 
-        .slider-item { 
-          flex: 0 0 50%; 
-        } 
-      } 
-      @media (min-width: 768px) { 
-        .slider-item { 
-          flex: 0 0 33.333%; 
-        } 
-      } 
-      .slider-controls { 
-        display: flex; 
-        justify-content: center;
-        margin-top: 1rem; 
-      } 
-      .slider-dot { 
-        width: 8px; 
-        height: 8px; 
-        border-radius: 50%; 
-        background: rgba(59, 130, 246, 0.5); 
-        margin: 0 4px; 
-        cursor: pointer;
-        transition: all 0.3s ease; 
-      } 
-      .slider-dot.active { 
-        width: 24px;
-        border-radius: 4px; 
-        background: rgba(59, 130, 246, 1); 
-      } 
-      .slider-nav {
-        position: absolute; 
-        top: 50%; 
-        transform: translateY(-50%); 
-        width: 40px;
-        height: 40px; 
-        background: rgba(255, 255, 255, 0.8); 
-        border-radius: 50%;
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        cursor: pointer; 
-        z-index: 10; 
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-      }
-      .slider-nav.prev { 
-        left: 10px; 
-      } 
-      .slider-nav.next { 
-        right: 10px; 
-      }
-      .feature-icon { 
-        width: 50px; 
-        height: 50px; 
-        background-color: rgba(59, 130, 246, 0.1); 
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-        border-radius: 50%; 
-        margin-right: 15px; 
-      } 
-      .progress-bar { 
-        position: fixed;
-        top: 0; 
-        left: 0; 
-        height: 4px; 
-        background: #3B82F6; 
-        z-index: 1000;
-        transition: width 0.3s ease; 
-      }
+      body { font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; }
+      .property-section { min-height: 100vh; scroll-snap-align: start; }
+      .overlay-gradient { background: linear-gradient(to bottom,
+      rgba(0,0,0,0.1), rgba(0,0,0,0.7)); } /* Enhanced slider styles */
+      .slider-container { position: relative; width: 100%; overflow: hidden; }
+      .slider-wrapper { display: flex; transition: transform 0.5s ease; }
+      .slider-item { flex: 0 0 100%; } @media (min-width: 640px) { .slider-item
+      { flex: 0 0 50%; } } @media (min-width: 768px) { .slider-item { flex: 0 0
+      33.333%; } } .slider-controls { display: flex; justify-content: center;
+      margin-top: 1rem; } .slider-dot { width: 8px; height: 8px; border-radius:
+      50%; background: rgba(59, 130, 246, 0.5); margin: 0 4px; cursor: pointer;
+      transition: all 0.3s ease; } .slider-dot.active { width: 24px;
+      border-radius: 4px; background: rgba(59, 130, 246, 1); } .slider-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); width: 40px;
+      height: 40px; background: rgba(255, 255, 255, 0.8); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; cursor:
+      pointer; z-index: 10; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+      .slider-nav.prev { left: 10px; } .slider-nav.next { right: 10px; }
+      .feature-icon { width: 50px; height: 50px; background-color: rgba(59, 130,
+      246, 0.1); display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; margin-right: 15px; } .progress-bar { position: fixed;
+      top: 0; left: 0; height: 4px; background: #3B82F6; z-index: 1000;
+      transition: width 0.3s ease; }
 
-
-      {{!-- Here's The Style Of The Links Layout [Last Block In The Page] --}}
-       .connect-container {
-      max-width: 800px;
-      width: 100%;
-      padding: 2rem;
-      background: linear-gradient(135deg, #8e2de2, #4a00e0);
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-      color: white;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    .connect-container::before {
-      content: "";
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      top: -150px;
-      right: -150px;
-    }
-    
-    .connect-heading {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      font-weight: 700;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .connect-subheading {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-      line-height: 1.6;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .chatbot-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .chatbot-card {
-      flex: 1;
-      min-width: 250px;
-      background-color: rgba(255, 255, 255, 0.15);
-      border-radius: 15px;
-      padding: 1.5rem;
-      backdrop-filter: blur(5px);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    
-    .chatbot-card:hover {
-      transform: translateY(-10px);
-      background-color: rgba(255, 255, 255, 0.25);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
-    
-    .chatbot-card::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 5px;
-      bottom: 0;
-      left: 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-      animation: shine 2s infinite;
-      transform: translateX(-100%);
-    }
-    
-    @keyframes shine {
-      to {
-        transform: translateX(100%);
-      }
-    }
-    
-    .icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      display: inline-block;
-    }
-    
-    .ig {
-      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    
-    .wa {
-      color: #25D366;
-    }
-    
-    .chatbot-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.8rem;
-    }
-    
-    .chatbot-card p {
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-      opacity: 0.8;
-    }
-    
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      background-color: rgba(255, 255, 255, 0.2);
-      color: white;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-    }
-    
-    .button:hover {
-      background-color: white;
-      color: #4a00e0;
-      border-color: white;
-    }
-    
-    .button-ig:hover {
-      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-      color: white;
-      border-color: transparent;
-    }
-    
-    .button-wa:hover {
-      background-color: #25D366;
-      color: white;
-      border-color: #25D366;
-    }
-    
-    .pulse {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.5);
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0% {
-        transform: scale(0);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(6);
-        opacity: 0;
-      }
-    }
-    
-    .floating-bubbles span {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.1);
-      animation: float 5s infinite linear;
-    }
-    
-    .floating-bubbles span:nth-child(1) {
-      width: 60px;
-      height: 60px;
-      left: 20%;
-      bottom: 10%;
-      animation-delay: 0s;
-      animation-duration: 8s;
-    }
-    
-    .floating-bubbles span:nth-child(2) {
-      width: 40px;
-      height: 40px;
-      left: 70%;
-      bottom: 30%;
-      animation-delay: 2s;
-      animation-duration: 10s;
-    }
-    
-    .floating-bubbles span:nth-child(3) {
-      width: 25px;
-      height: 25px;
-      left: 40%;
-      bottom: 60%;
-      animation-delay: 4s;
-      animation-duration: 7s;
-    }
-    
-    @keyframes float {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.8;
-      }
-      50% {
-        transform: translateY(-100px) rotate(180deg);
-        opacity: 0.4;
-      }
-      100% {
-        transform: translateY(-200px) rotate(360deg);
-        opacity: 0;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .connect-container {
-        padding: 1.5rem;
-      }
-      
-      .connect-heading {
-        font-size: 2rem;
-      }
-      
-      .chatbot-links {
-        flex-direction: column;
-      }
-    }
+      {{! Here's The Style Of The Links Layout [Last Block In The Page] }}
+      .connect-container { max-width: 800px; width: 100%; padding: 2rem;
+      background: linear-gradient(135deg, #8e2de2, #4a00e0); border-radius:
+      20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2); color: white; overflow:
+      hidden; position: relative; } .connect-container::before { content: "";
+      position: absolute; width: 300px; height: 300px; background: rgba(255,
+      255, 255, 0.1); border-radius: 50%; top: -150px; right: -150px; }
+      .connect-heading { font-size: 2.5rem; margin-bottom: 1.5rem; font-weight:
+      700; position: relative; z-index: 2; } .connect-subheading { font-size:
+      1.2rem; margin-bottom: 2rem; opacity: 0.9; line-height: 1.6; position:
+      relative; z-index: 2; } .chatbot-links { display: flex; flex-wrap: wrap;
+      gap: 20px; position: relative; z-index: 2; } .chatbot-card { flex: 1;
+      min-width: 250px; background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 15px; padding: 1.5rem; backdrop-filter: blur(5px);
+      transition: all 0.3s ease; position: relative; overflow: hidden; cursor:
+      pointer; } .chatbot-card:hover { transform: translateY(-10px);
+      background-color: rgba(255, 255, 255, 0.25); box-shadow: 0 10px 20px
+      rgba(0, 0, 0, 0.2); } .chatbot-card::after { content: ""; position:
+      absolute; width: 100%; height: 5px; bottom: 0; left: 0; background:
+      linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5),
+      transparent); animation: shine 2s infinite; transform: translateX(-100%);
+      } @keyframes shine { to { transform: translateX(100%); } } .icon {
+      font-size: 2.5rem; margin-bottom: 1rem; display: inline-block; } .ig {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366,
+      #bc1888); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; } .wa { color: #25D366; }
+      .chatbot-card h3 { font-size: 1.5rem; margin-bottom: 0.8rem; }
+      .chatbot-card p { font-size: 1rem; margin-bottom: 1.5rem; opacity: 0.8; }
+      .button { display: inline-flex; align-items: center; justify-content:
+      center; padding: 0.8rem 1.5rem; border-radius: 50px; font-weight: 600;
+      text-decoration: none; transition: all 0.3s ease; background-color:
+      rgba(255, 255, 255, 0.2); color: white; border: 2px solid rgba(255, 255,
+      255, 0.3); } .button:hover { background-color: white; color: #4a00e0;
+      border-color: white; } .button-ig:hover { background:
+      linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white; border-color: transparent; } .button-wa:hover {
+      background-color: #25D366; color: white; border-color: #25D366; } .pulse {
+      position: absolute; width: 20px; height: 20px; border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5); animation: pulse 2s infinite;
+      } @keyframes pulse { 0% { transform: scale(0); opacity: 1; } 100% {
+      transform: scale(6); opacity: 0; } } .floating-bubbles span { position:
+      absolute; width: 30px; height: 30px; border-radius: 50%; background-color:
+      rgba(255, 255, 255, 0.1); animation: float 5s infinite linear; }
+      .floating-bubbles span:nth-child(1) { width: 60px; height: 60px; left:
+      20%; bottom: 10%; animation-delay: 0s; animation-duration: 8s; }
+      .floating-bubbles span:nth-child(2) { width: 40px; height: 40px; left:
+      70%; bottom: 30%; animation-delay: 2s; animation-duration: 10s; }
+      .floating-bubbles span:nth-child(3) { width: 25px; height: 25px; left:
+      40%; bottom: 60%; animation-delay: 4s; animation-duration: 7s; }
+      @keyframes float { 0% { transform: translateY(0) rotate(0deg); opacity:
+      0.8; } 50% { transform: translateY(-100px) rotate(180deg); opacity: 0.4; }
+      100% { transform: translateY(-200px) rotate(360deg); opacity: 0; } }
+      @media (max-width: 768px) { .connect-container { padding: 1.5rem; }
+      .connect-heading { font-size: 2rem; } .chatbot-links { flex-direction:
+      column; } }
     </style>
   </head>
   <body class="bg-gray-100">
@@ -516,6 +270,7 @@
     </section>
 
     <!-- Payment Details Section -->
+
     <section class="property-section bg-white py-20">
       <div class="container mx-auto px-6">
         <h2 class="text-4xl font-bold text-center mb-16">Payment Details</h2>
@@ -538,7 +293,7 @@
               <div
                 class="flex justify-between items-center pb-3 border-b border-gray-200"
               >
-                <span class="text-gray-600">Price per sq ft</span>
+                <span class="text-gray-600">Price per sq </span>
                 <span class="font-bold">${{calculatePricePerSqFt
                     price
                     size
@@ -548,8 +303,10 @@
               <div
                 class="flex justify-between items-center pb-3 border-b border-gray-200"
               >
-                <span class="text-gray-600">Over Payment</span>
-                <span class="font-bold">${{over_payment}} </span>
+                <span class="text-gray-600">Remaining</span>
+                <span class="font-bold">${{formatNumber
+                    (subtract price down_payment)
+                  }}</span>
               </div>
             </div>
           </div>
@@ -557,9 +314,8 @@
       </div>
     </section>
 
-
     <!-- Links Layout [Last Block In The Page] -->
-     {{!-- <section class="connect-container ">
+    {{! <section class="connect-container ">
     <div class="floating-bubbles">
       <span></span>
       <span></span>
@@ -605,206 +361,92 @@
         <a href="https://wa.me/1234567890" class="button button-wa">Message on WhatsApp</a>
       </div>
     </div>
-  </section> --}}
+  </section> }}
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Progress bar functionality
-        const progressBar = document.getElementById('progressBar');
-        window.addEventListener('scroll', () => {
-          const scrollTop = document.documentElement.scrollTop;
-          const scrollHeight = document.documentElement.scrollHeight;
-          const clientHeight = document.documentElement.clientHeight;
-          const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100;
-          progressBar.style.width = scrolled + '%';
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-              behavior: 'smooth'
-            });
-          });
-        });
-
-        // Enhanced Image Slider
-        const sliderWrapper = document.getElementById('sliderWrapper');
-        const sliderPrev = document.getElementById('sliderPrev');
-        const sliderNext = document.getElementById('sliderNext');
-        const sliderControls = document.getElementById('sliderControls');
-
-        if (sliderWrapper && sliderPrev && sliderNext) {
-          const sliderItems = sliderWrapper.querySelectorAll('.slider-item');
-          const totalSlides = sliderItems.length;
-          let currentIndex = 0;
-          let slideWidth = 0;
-          let isTransitioning = false;
-
-          // Create slider dots
-          for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement('div');
-            dot.className = `slider-dot ${i === 0 ? 'active' : ''}`;
-            dot.addEventListener('click', () => {
-              if (!isTransitioning) {
-                goToSlide(i);
-              }
-            });
-            sliderControls.appendChild(dot);
-          }
-
-          // Calculate slide width based on responsive breakpoints
-          function calculateSlideWidth() {
-            const containerWidth = sliderWrapper.parentElement.clientWidth;
-            if (window.innerWidth >= 768) {
-              // 3 slides per view on md screens
-              slideWidth = containerWidth / 3;
-              return 3;
-            } else if (window.innerWidth >= 640) {
-              // 2 slides per view on sm screens
-              slideWidth = containerWidth / 2;
-              return 2;
-            } else {
-              // 1 slide per view on xs screens
-              slideWidth = containerWidth;
-              return 1;
-            }
-          }
-
-          // Initialize slider
-          function initSlider() {
-            const slidesPerView = calculateSlideWidth();
-            sliderItems.forEach(item => {
-              item.style.width = `${slideWidth}px`;
-            });
-            updateSlider();
-          }
-
-          // Update slider position
-          function updateSlider() {
-            isTransitioning = true;
-            sliderWrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-            
-            // Update dots
-            const dots = sliderControls.querySelectorAll('.slider-dot');
-            dots.forEach((dot, index) => {
-              dot.className = `slider-dot ${index === currentIndex ? 'active' : ''}`;
-            });
-            
-            setTimeout(() => {
-              isTransitioning = false;
-            }, 500);
-          }
-
-          // Go to specific slide
-          function goToSlide(index) {
-            const slidesPerView = calculateSlideWidth();
-            const maxIndex = totalSlides - slidesPerView;
-            currentIndex = Math.max(0, Math.min(index, maxIndex));
-            updateSlider();
-          }
-
-          // Previous slide
-          sliderPrev.addEventListener('click', () => {
-            if (!isTransitioning) {
-              currentIndex = Math.max(0, currentIndex - 1);
-              updateSlider();
-            }
-          });
-
-          // Next slide
-          sliderNext.addEventListener('click', () => {
-            if (!isTransitioning) {
-              const slidesPerView = calculateSlideWidth();
-              const maxIndex = totalSlides - slidesPerView;
-              currentIndex = Math.min(maxIndex, currentIndex + 1);
-              updateSlider();
-            }
-          });
-
-          // Handle touch events for mobile
-          let touchStartX = 0;
-          let touchEndX = 0;
-          
-          sliderWrapper.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-          }, { passive: true });
-          
-          sliderWrapper.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-          }, { passive: true });
-          
-          function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-            
-            if (!isTransitioning && Math.abs(diff) > swipeThreshold) {
-              if (diff > 0) {
-                // Swipe left, go to next slide
-                const slidesPerView = calculateSlideWidth();
-                const maxIndex = totalSlides - slidesPerView;
-                currentIndex = Math.min(maxIndex, currentIndex + 1);
-              } else {
-                // Swipe right, go to previous slide
-                currentIndex = Math.max(0, currentIndex - 1);
-              }
-              updateSlider();
-            }
-          }
-
-          // Handle window resize
-          window.addEventListener('resize', () => {
-            initSlider();
-          });
-
-          // Initialize slider on load
-          initSlider();
-        }
-      });
-
-      document.addEventListener('DOMContentLoaded', () => {
-      // Add animation to cards on load
-      const cards = document.querySelectorAll('.chatbot-card');
-      cards.forEach((card, index) => {
-        setTimeout(() => {
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(30px)';
-          
-          setTimeout(() => {
-            card.style.transition = 'all 0.8s ease';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, 100);
-        }, index * 200);
-      });
-      
-      // Add random floating bubbles
-      const container = document.querySelector('.connect-container');
-      for (let i = 0; i < 8; i++) {
-        const bubble = document.createElement('div');
-        bubble.style.position = 'absolute';
-        bubble.style.width = `${Math.random() * 40 + 10}px`;
-        bubble.style.height = bubble.style.width;
-        bubble.style.borderRadius = '50%';
-        bubble.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
-        bubble.style.bottom = `-${bubble.style.width}`;
-        bubble.style.left = `${Math.random() * 100}%`;
-        bubble.style.animation = `float ${Math.random() * 5 + 8}s linear infinite`;
-        bubble.style.animationDelay = `${Math.random() * 5}s`;
-        container.appendChild(bubble);
-      }
-    });
+      document.addEventListener('DOMContentLoaded', function() { // Progress bar
+      functionality const progressBar = document.getElementById('progressBar');
+      window.addEventListener('scroll', () => { const scrollTop =
+      document.documentElement.scrollTop; const scrollHeight =
+      document.documentElement.scrollHeight; const clientHeight =
+      document.documentElement.clientHeight; const scrolled = (scrollTop /
+      (scrollHeight - clientHeight)) * 100; progressBar.style.width = scrolled +
+      '%'; }); // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) { e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth' }); }); }); // Enhanced Image Slider const
+      sliderWrapper = document.getElementById('sliderWrapper'); const sliderPrev
+      = document.getElementById('sliderPrev'); const sliderNext =
+      document.getElementById('sliderNext'); const sliderControls =
+      document.getElementById('sliderControls'); if (sliderWrapper && sliderPrev
+      && sliderNext) { const sliderItems =
+      sliderWrapper.querySelectorAll('.slider-item'); const totalSlides =
+      sliderItems.length; let currentIndex = 0; let slideWidth = 0; let
+      isTransitioning = false; // Create slider dots for (let i = 0; i <
+      totalSlides; i++) { const dot = document.createElement('div');
+      dot.className = `slider-dot ${i === 0 ? 'active' : ''}`;
+      dot.addEventListener('click', () => { if (!isTransitioning) {
+      goToSlide(i); } }); sliderControls.appendChild(dot); } // Calculate slide
+      width based on responsive breakpoints function calculateSlideWidth() {
+      const containerWidth = sliderWrapper.parentElement.clientWidth; if
+      (window.innerWidth >= 768) { // 3 slides per view on md screens slideWidth
+      = containerWidth / 3; return 3; } else if (window.innerWidth >= 640) { //
+      2 slides per view on sm screens slideWidth = containerWidth / 2; return 2;
+      } else { // 1 slide per view on xs screens slideWidth = containerWidth;
+      return 1; } } // Initialize slider function initSlider() { const
+      slidesPerView = calculateSlideWidth(); sliderItems.forEach(item => {
+      item.style.width = `${slideWidth}px`; }); updateSlider(); } // Update
+      slider position function updateSlider() { isTransitioning = true;
+      sliderWrapper.style.transform = `translateX(-${currentIndex *
+      slideWidth}px)`; // Update dots const dots =
+      sliderControls.querySelectorAll('.slider-dot'); dots.forEach((dot, index)
+      => { dot.className = `slider-dot ${index === currentIndex ? 'active' :
+      ''}`; }); setTimeout(() => { isTransitioning = false; }, 500); } // Go to
+      specific slide function goToSlide(index) { const slidesPerView =
+      calculateSlideWidth(); const maxIndex = totalSlides - slidesPerView;
+      currentIndex = Math.max(0, Math.min(index, maxIndex)); updateSlider(); }
+      // Previous slide sliderPrev.addEventListener('click', () => { if
+      (!isTransitioning) { currentIndex = Math.max(0, currentIndex - 1);
+      updateSlider(); } }); // Next slide sliderNext.addEventListener('click',
+      () => { if (!isTransitioning) { const slidesPerView =
+      calculateSlideWidth(); const maxIndex = totalSlides - slidesPerView;
+      currentIndex = Math.min(maxIndex, currentIndex + 1); updateSlider(); } });
+      // Handle touch events for mobile let touchStartX = 0; let touchEndX = 0;
+      sliderWrapper.addEventListener('touchstart', (e) => { touchStartX =
+      e.changedTouches[0].screenX; }, { passive: true });
+      sliderWrapper.addEventListener('touchend', (e) => { touchEndX =
+      e.changedTouches[0].screenX; handleSwipe(); }, { passive: true });
+      function handleSwipe() { const swipeThreshold = 50; const diff =
+      touchStartX - touchEndX; if (!isTransitioning && Math.abs(diff) >
+      swipeThreshold) { if (diff > 0) { // Swipe left, go to next slide const
+      slidesPerView = calculateSlideWidth(); const maxIndex = totalSlides -
+      slidesPerView; currentIndex = Math.min(maxIndex, currentIndex + 1); } else
+      { // Swipe right, go to previous slide currentIndex = Math.max(0,
+      currentIndex - 1); } updateSlider(); } } // Handle window resize
+      window.addEventListener('resize', () => { initSlider(); }); // Initialize
+      slider on load initSlider(); } });
+      document.addEventListener('DOMContentLoaded', () => { // Add animation to
+      cards on load const cards = document.querySelectorAll('.chatbot-card');
+      cards.forEach((card, index) => { setTimeout(() => { card.style.opacity =
+      '0'; card.style.transform = 'translateY(30px)'; setTimeout(() => {
+      card.style.transition = 'all 0.8s ease'; card.style.opacity = '1';
+      card.style.transform = 'translateY(0)'; }, 100); }, index * 200); }); //
+      Add random floating bubbles const container =
+      document.querySelector('.connect-container'); for (let i = 0; i < 8; i++)
+      { const bubble = document.createElement('div'); bubble.style.position =
+      'absolute'; bubble.style.width = `${Math.random() * 40 + 10}px`;
+      bubble.style.height = bubble.style.width; bubble.style.borderRadius =
+      '50%'; bubble.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+      bubble.style.bottom = `-${bubble.style.width}`; bubble.style.left =
+      `${Math.random() * 100}%`; bubble.style.animation = `float ${Math.random()
+      * 5 + 8}s linear infinite`; bubble.style.animationDelay = `${Math.random()
+      * 5}s`; container.appendChild(bubble); } });
     </script>
   </body>
 </html>
 
-
-
-
-
-{{!-- <!DOCTYPE html>
+{{! <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1141,4 +783,4 @@
     });
   </script>
 </body>
-</html> --}}
+</html> }}

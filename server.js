@@ -34,6 +34,11 @@ handlebars.registerHelper('calculatePricePerSqFt', function(price, size) {
   return pricePerSqFt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
 
+// Register a subtract helper for Handlebars
+handlebars.registerHelper('subtract', function(a, b) {
+  return a - b;
+});
+
 // API Endpoint to save property data from SendPulse
 app.post('/api/properties', async (req, res) => {
   try {
